@@ -8,14 +8,24 @@ import java.util.stream.Stream;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class FileSystemStorageService implements StorageService {
 
   private final Path rootLocation;
 
   public FileSystemStorageService() {
-    this.rootLocation = Paths.get("/");
+    // TODO: folder name should read from application.yml
+    this.rootLocation = Paths.get(System.getProperty("user.dir"), "upload-dir");
+    try {
+      Files.createDirectories(this.rootLocation);
+      log.info("Directories created successfully.");
+    } catch (IOException e) {
+      e.printStackTrace();
+      log.info("Failed to create directories.");
+    }
   }
 
   @Override
@@ -26,6 +36,8 @@ public class FileSystemStorageService implements StorageService {
 
   @Override
   public void store(MultipartFile file) {
+    log.info("Storing file: {} to {}", file.getOriginalFilename(),
+        this.rootLocation.resolve(file.getOriginalFilename()));
     try {
       if (file.isEmpty()) {
         throw new StorageException("Failed to store empty file " + file.getOriginalFilename());
