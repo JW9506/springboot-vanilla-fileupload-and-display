@@ -1,11 +1,13 @@
 package com.quickstart.storage;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import lombok.extern.slf4j.Slf4j;
@@ -61,14 +63,25 @@ public class FileSystemStorageService implements StorageService {
 
   @Override
   public Path load(String filename) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'load'");
+
+    return rootLocation.resolve(filename);
   }
 
   @Override
   public Resource loadAsResource(String filename) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'loadAsResource'");
+
+    try {
+      Path file = load(filename);
+      Resource resource = new UrlResource(file.toUri());
+      if (resource.exists() || resource.isReadable()) {
+        return resource;
+      } else {
+        throw new StorageException("Could not read file: " + filename);
+
+      }
+    } catch (MalformedURLException e) {
+      throw new StorageException("Could not read file: " + filename, e);
+    }
   }
 
   @Override
