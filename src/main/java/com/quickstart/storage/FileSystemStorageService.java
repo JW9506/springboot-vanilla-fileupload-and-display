@@ -21,6 +21,10 @@ public class FileSystemStorageService implements StorageService {
   public FileSystemStorageService() {
     // TODO: folder name should read from application.yml
     this.rootLocation = Paths.get(System.getProperty("user.dir"), "upload-dir");
+  }
+
+  @Override
+  public void init() {
     try {
       Files.createDirectories(this.rootLocation);
       log.info("Directories created successfully.");

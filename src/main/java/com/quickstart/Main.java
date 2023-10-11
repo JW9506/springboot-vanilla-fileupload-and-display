@@ -11,4 +11,11 @@ public class Main {
   public static void main(String[] args) {
     SpringApplication.run(Main.class, args);
   }
+
+  @Bean
+  CommandLineRunner init(StorageService storageService) {
+    return (args) -> {
+      storageService.init();
+    };
+  }
 }
