@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,20 +36,18 @@ public class FileSystemStorageService implements StorageService {
   }
 
   @Override
-  public void init() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'init'");
-  }
-
-  @Override
-  public void store(MultipartFile file) {
+  public void store(MultipartFile file) throws StorageHandleException {
     log.info("Storing file: {} to {}", file.getOriginalFilename(),
         this.rootLocation.resolve(file.getOriginalFilename()));
     try {
       if (file.isEmpty()) {
         throw new StorageException("Failed to store empty file " + file.getOriginalFilename());
       }
-      Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
+      Path target = this.rootLocation.resolve(file.getOriginalFilename());
+      if (Files.exists(target)) {
+        throw new StorageHandleException("File " + file.getOriginalFilename() + " already exists!");
+      }
+      Files.copy(file.getInputStream(), target);
     } catch (IOException e) {
       throw new StorageException("Failed to store file " + file.getOriginalFilename(), e);
     }
@@ -90,8 +89,7 @@ public class FileSystemStorageService implements StorageService {
 
   @Override
   public void deleteAll() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'deleteAll'");
-  }
+    FileSystemUtils.deleteRecursively(rootLocation.toFile());
 
+  }
 }

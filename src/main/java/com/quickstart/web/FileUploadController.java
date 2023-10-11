@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.quickstart.storage.StorageHandleException;
 import com.quickstart.storage.StorageService;
 import lombok.AllArgsConstructor;
 
@@ -50,9 +51,13 @@ public class FileUploadController {
   public String handleFileUpload(@RequestParam("file") MultipartFile file,
       RedirectAttributes redirectAttributes) {
 
-    storageService.store(file);
-    redirectAttributes.addFlashAttribute("message",
-        "You successfully uploaded " + file.getOriginalFilename() + "!");
+    try {
+      storageService.store(file);
+      redirectAttributes.addFlashAttribute("message",
+          "You successfully uploaded " + file.getOriginalFilename() + "!");
+    } catch (StorageHandleException e) {
+      redirectAttributes.addFlashAttribute("message", e.getMessage());
+    }
 
     return "redirect:/";
   }

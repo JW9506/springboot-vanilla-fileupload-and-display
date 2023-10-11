@@ -11,7 +11,7 @@ public interface StorageService {
   void init();
 
   // store() method is used to store a file.
-  void store(MultipartFile file);
+  public void store(MultipartFile file) throws StorageHandleException;
 
   // loadAll() method is used to load all files as a Stream<Path> object.
   Stream<Path> loadAll();
