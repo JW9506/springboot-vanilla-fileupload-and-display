@@ -11,21 +11,24 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
+import com.quickstart.config.StorageConfig;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
 public class FileSystemStorageService implements StorageService {
 
-  private final Path rootLocation;
+  private final StorageConfig storageConfig;
 
-  public FileSystemStorageService() {
-    // TODO: folder name should read from application.yml
-    this.rootLocation = Paths.get(System.getProperty("user.dir"), "upload-dir");
+  public FileSystemStorageService(StorageConfig storageConfig) {
+    this.storageConfig = storageConfig;
   }
+
+  private Path rootLocation;
 
   @Override
   public void init() {
+    this.rootLocation = Paths.get(System.getProperty("user.dir"), storageConfig.getLocation());
     try {
       Files.createDirectories(this.rootLocation);
       log.info("Directories created successfully.");
