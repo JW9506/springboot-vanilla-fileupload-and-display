@@ -25,7 +25,8 @@ This document provides an overview of the File Storage Service project. The proj
 - java.nio.file.Path
 - java.nio.file.Paths
 
-Objective: To deliver a reliable and efficient file storage service with an emphasis on simplicity and functionality.
+## Objective:
+To deliver a reliable and efficient file storage service with an emphasis on simplicity and functionality.
 
 ## Features
 - **File Upload Functionality**: The service allows for the uploading of files to a server via a web interface.
