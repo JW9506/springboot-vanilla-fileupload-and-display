@@ -14,6 +14,14 @@ Objective: To deliver a reliable and efficient file storage service with an emph
 - **Duplicate File Handling**: Implementation is underway to enable the storage of files with duplicate names by appending a numerical identifier before the file extension.
 - **File Management Improvements**: Planned upgrades include enhanced capabilities for file sorting, searching, and categorization.
 
+## Screenshots
+- Welcome screen
+![Welcome screen](./welcome-screen.jpg)
+- File select, upload, and get success message:
+![File select and success message](./file-select-and-success-message.jpg)
+- File perists on the server:
+![File persist on refresh](./file-persist-on-refresh.jpg)
+
 ## Contribution Guidelines
 Contributions to this project are subject to review and approval. Interested parties are encouraged to submit feature requests, bug reports, and pull requests through the project's GitHub repository.
 
