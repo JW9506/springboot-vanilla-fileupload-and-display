@@ -3,6 +3,28 @@
 ## Overview
 This document provides an overview of the File Storage Service project. The project is developed using the `spring-boot-web` and `spring-boot-thymeleaf` frameworks, facilitating a web-based interface for file storage and retrieval.
 
+## Notable Spring framework API used:
+
+- org.springframework.core.io.Resource
+- org.springframework.http.HttpHeaders
+- org.springframework.http.ResponseEntity
+- org.springframework.stereotype.Controller
+- org.springframework.ui.Model
+- org.springframework.web.bind.annotation.GetMapping
+- org.springframework.web.bind.annotation.PathVariable
+- org.springframework.web.bind.annotation.PostMapping
+- org.springframework.web.bind.annotation.RequestParam
+- org.springframework.web.bind.annotation.ResponseBody
+- org.springframework.web.multipart.MultipartFile
+- org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder
+- org.springframework.web.servlet.mvc.support.RedirectAttributes
+
+## Notable Java API used:
+
+- java.nio.file.Files
+- java.nio.file.Path
+- java.nio.file.Paths
+
 Objective: To deliver a reliable and efficient file storage service with an emphasis on simplicity and functionality.
 
 ## Features
