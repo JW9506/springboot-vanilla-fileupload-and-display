@@ -30,7 +30,7 @@ To deliver a reliable and efficient file storage service with an emphasis on sim
 
 ## Features
 - **File Upload Functionality**: The service allows for the uploading of files to a server via a web interface.
-- **Directory Specification**: Users have the option to specify the directory for file storage. The default location is the 'upload-dir' in the project's root directory.
+- **Directory Specification**: Users have the option to specify the directory for file storage. The default location is the 'upload-dir' in the project's root directory. See [application.yml](./src/main/resources/application.yml)
 - **Downloadable Links**: Each file upload generates a link, allowing for easy retrieval of the file.
 
 ## Future Developments
